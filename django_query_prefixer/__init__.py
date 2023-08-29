@@ -15,7 +15,7 @@ def get_prefixes() -> dict[str, str]:
 
 def default_prefixer_fn() -> str:
     prefixes = get_prefixes()
-    return " ".join([f"{key}={value}" for key, value in prefixes.items()])
+    return " ".join(f"{key}={value}" for key, value in prefixes.items())
 
 
 _prefixes: ContextVar[dict[str, str]] = ContextVar("sql_prefixes")
