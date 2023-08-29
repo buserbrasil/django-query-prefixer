@@ -27,22 +27,20 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-path = "django_query_prefix/__init__.py"
+path = "django_query_prefixer/__init__.py"
 
 [tool.hatch.envs.test]
 dependencies = [
   "pytest",
   "pytest-cov",
-  "redis",
-  "cryptography",
-  "pymemcache"
+  "django>=4.2"
 ]
 
 [[tool.hatch.envs.test.matrix]]
 python = ["3.11", "3.10", "3.9", "3.8"]
 
 [tool.hatch.envs.test.scripts]
-cov = "pytest --cov=django_query_prefix {args:tests}"
+cov = "pytest --cov=django_query_prefixer {args:tests}"
 
 [tool.hatch.envs.default]
 dependencies = [
