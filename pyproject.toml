@@ -1,0 +1,81 @@
+[project]
+name = "django-query-prefixer"
+dynamic = ["version"]
+authors = [
+  { name="Erle Carrara", email="carrara.erle@gmail.com" },
+]
+description = "Add helpful annotations to SQL queries."
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Django",
+    "Django :: 4"
+]
+
+[project.urls]
+Source = "https://github.com/ecarrara/django-query-prefixer"
+Issues = "https://github.com/ecarrara/django-query-prefixer/issues"
+
+[project.optional-dependencies]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "django_query_prefix/__init__.py"
+
+[tool.hatch.envs.test]
+dependencies = [
+  "pytest",
+  "pytest-cov",
+  "redis",
+  "cryptography",
+  "pymemcache"
+]
+
+[[tool.hatch.envs.test.matrix]]
+python = ["3.11", "3.10", "3.9", "3.8"]
+
+[tool.hatch.envs.test.scripts]
+cov = "pytest --cov=django_query_prefix {args:tests}"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "black>=23.3",
+  "pyright>=1.1",
+  "ruff>=0.0.274",
+  "pytest",
+  "sphinx",
+  "django>=4.2"
+]
+
+[tool.hatch.envs.default.scripts]
+typing = "pyright {args:django-query-prefixer tests}"
+style = [
+  "ruff {args:.}",
+  "black --check --diff {args:.}"
+]
+fmt = [
+  "black {args:.}",
+  "ruff --fix {args:.}",
+  "style"
+]
+doc = [
+  "sphinx-build -b html docs _build/html"
+]
+
+[tool.black]
+target-version = ["py38"]
+line-length = 120
+
+[tool.ruff]
+target-version = "py38"
+line-length = 120
+
+[tool.ruff.isort]
+known-first-party = ["django-query-prefixer"]
