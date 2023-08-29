@@ -1,3 +1,4 @@
+from typing import Dict
 from contextvars import ContextVar
 
 __version__ = "0.1.0"
@@ -9,7 +10,7 @@ def set_prefix(key: str, value: str):
     _prefixes.set(prefixes)
 
 
-def get_prefixes() -> dict[str, str]:
+def get_prefixes() -> Dict[str, str]:
     return _prefixes.get({})
 
 
@@ -18,4 +19,4 @@ def default_prefixer_fn() -> str:
     return " ".join(f"{key}={value}" for key, value in prefixes.items())
 
 
-_prefixes: ContextVar[dict[str, str]] = ContextVar("sql_prefixes")
+_prefixes: ContextVar[Dict[str, str]] = ContextVar("sql_prefixes")
