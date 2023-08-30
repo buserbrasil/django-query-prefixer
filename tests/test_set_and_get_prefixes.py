@@ -1,4 +1,10 @@
-from django_query_prefixer import get_prefixes, set_prefix
+from django_query_prefixer import get_prefixes, set_prefix, sql_prefixes
+
+
+def test_sql_prefixes_context_manager():
+    with sql_prefixes(test="dummy", n=42):
+        assert get_prefixes() == {"test": "dummy", "n": "42"}
+    assert get_prefixes() == {}
 
 
 def test_set_prefixes():
