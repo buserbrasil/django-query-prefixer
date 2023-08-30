@@ -12,8 +12,8 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Django",
-    "Django :: 4"
+    "Framework :: Django",
+    "Framework :: Django :: 4"
 ]
 
 [project.urls]
