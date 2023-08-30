@@ -1,5 +1,5 @@
 from django.urls import resolve
-from django_query_prefixer import set_prefix
+from django_query_prefixer import sql_prefixes
 
 
 def request_route(get_response):
@@ -9,11 +9,11 @@ def request_route(get_response):
         else:
             route = resolve(request.path_info)
 
-        set_prefix("view_name", route.view_name)
-        set_prefix("route", escape_comment_markers(route.route))
-
-        response = get_response(request)
-        return response
+        with sql_prefixes(
+            view_name=route.view_name,
+            route=escape_comment_markers(route.route),
+        ):
+            return get_response(request)
 
     return middleware
 
