@@ -1,5 +1,5 @@
 from unittest import mock
-from django_query_prefixer import get_prefixes
+
 from django_query_prefixer.middlewares import request_route
 
 
@@ -12,10 +12,12 @@ def test_request_route_middleware():
     request.resolver_match.route.route = "/hello"
     request.resolver_match.route.view_name = "hello_world"
 
-    assert middleware(request) == response
-    assert get_prefixes() == {
-        "route": "/hello",
-        "view_name": "hello_world",
-    }
+    with mock.patch("django_query_prefixer.middlewares.sql_prefixes") as mock_sql_prefixes:
+        assert middleware(request) == response
+
+    mock_sql_prefixes.assert_called_with(
+        view_name="hello_world",
+        route="/hello",
+    )
 
     get_response.assert_called_once_with(request)
