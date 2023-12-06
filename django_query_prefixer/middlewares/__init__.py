@@ -7,7 +7,7 @@ class RequestRouteMiddleware:
         self.get_response = get_response 
 
     def __call__(self, request):
-        response = request.get_response(request)
+        response = self.get_response(request)
         remove_prefix("view_name")
         remove_prefix("route")
         return response
