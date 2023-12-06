@@ -20,8 +20,3 @@ def test_request_route_middleware():
     assert mock_set_prefix.call_args_list[1].kwargs == {"key": "route", "value": "/hello"}
     assert mock_remove_prefix.call_args_list[0].args[0] == "view_name"
     assert mock_remove_prefix.call_args_list[1].args[0] == "route"
-    
-
-
-
-    get_response.assert_called_once_with(request)
