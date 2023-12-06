@@ -18,7 +18,6 @@ class RequestRouteMiddleware:
             key="route",
             value=escape_comment_markers(request.resolver_match.route.route)
         )
-        return view_func
 
 
 def request_route(get_response):
