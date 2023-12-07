@@ -1,10 +1,9 @@
-from django.urls import resolve
 from django_query_prefixer import set_prefix, remove_prefix
 
 
 class RequestRouteMiddleware:
-    def  __init__(self, get_response):
-        self.get_response = get_response 
+    def __init__(self, get_response):
+        self.get_response = get_response
 
     def __call__(self, request):
         response = self.get_response(request)
@@ -14,10 +13,7 @@ class RequestRouteMiddleware:
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         set_prefix(key="view_name", value=f"{view_func.__module__}.{view_func.__name__}")
-        set_prefix(
-            key="route",
-            value=escape_comment_markers(request.resolver_match.route.route)
-        )
+        set_prefix(key="route", value=escape_comment_markers(request.resolver_match.route.route))
 
 
 def request_route(get_response):
